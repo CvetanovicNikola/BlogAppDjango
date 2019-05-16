@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+    .container {
+        
+        width: 80%;
+        
+    }
+    #inner{
+        position : relative;
+        left : 10%;
+    }
+
+    #summary {
+        width: 100%;
+
+    }
+
+    #img {
+
+        height: 400px;
+        width: 80%;
+        box-shadow: 5px 5px lightgray;
+        border-radius: 10px;
+
+
+    }
+
+    #id {
+        position: absolute;
+        left: 70%;
+    }
+
+    #form {
+        position: relative;
+        top : 30px;
+        left: 3%;
+    }
+    
+    #photo {
+        border-radius: 50%;
+        height: 30px;
+        width: 30px;
+    }
+</style>
+
+<div id="form">
+    <form action="{% url 'allposts' %}" method="GET">
+        <input type="text" placeholder="Search post posts" name="title" value="{{ request.GET.title }}">
+        <br>
+        <br>
+        <input class="btn btn-primary" type="submit" value="search">
+    </form>
+</div>
+<div id="all">
+    
+
+    <div class="container">
+        <h1 class="text-center pt-5">Welcome to the EduShare app!</h1>
+        <br>
+        <br>
+        <h2>Latest Post</h2>
+        <hr>
+        <div id="inner">
+        {% for post in posts.all %}
+            <a href="{% url 'detail' post.id %}">
+                <h3>{{ post.title }}</h3>
+                <br>
+                <h4>Price : {{ post.price }}</h4>
+                <div><strong>Added by : </strong> <img id="photo" src="{{ post.user.profile.photo.url }}" 
+                alt="user profile photo">
+                {{ post.user }} <strong> on </strong> {{ post.pub_date_pretty }}
+                </div>
+                <p>Rating : {{ post.user.profile.rating }}</p>
+                <img id="img" class="img-fluid" src="{{ post.image.url }}">
+                <br>
+                <p id="summary">{{ post.summary }}</p>
+                <br>
+                <br>
+                <br>
+                <br>
+                {% endfor %}
+        </div>
+    </div>
+</div>
+<div class="container">
+
+    {% if is_paginated %}
+
+    {% if page_obj.has_previous %}
+
+    <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+
+    {% if page_obj.number == num %}
+    <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+    <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+    {% endif %}
+
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+
+    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+
+    {% endif %}
+
+    {% endif %}
+
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+{% endblock content %}

@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+
+
+
+{% block content %}
+
+
+<style>
+    .container {
+        width: 70%;
+    }
+
+    .img-fluid {
+        height: 40vh;
+        box-shadow: 5px 5px lightgray;
+        border-radius: 10px;
+        min-width: 100%;
+        min-height: 60vh;
+
+
+    }
+
+     #photo {
+        border-radius: 50%;
+        height: 30px;
+        width: 30px;
+    }
+</style>
+
+
+<div class="container">
+    <h1 class="text-center pt-5">{{object.title}}</h1>
+    <p class="text-center">{{ object.pub_date_pretty }}</p>
+    <br>
+    <div><strong>Added by : </strong> <img id="photo" src="{{ object.user.profile.photo.url }}" 
+            alt="user profile photo">
+        {{ object.user }} <strong> on </strong> {{ object.pub_date_pretty }}
+    </div>
+    <br>
+    <br>
+    <p>Rating : {{ object.user.profile.rating }}</p>
+    <br>
+    <br>
+    <a href="{% url 'all_user_posts' object.user %}" class="btn btn-secondary">View all {{ object.user }}'s
+        posts.</a>
+    <br>
+    <br>
+     {% if object.user == user %}
+    <div>
+        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'update_post' object.id %}">Update</a>
+        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'delete_post' object.id %}">Delete</a>
+    </div>
+
+    {% endif %}
+    <br>
+    <br>
+    <br>
+    {% if user.is_authenticated %}
+
+    <a href="javascript:{document.getElementById('upvote').submit()}"><button
+            class="btn btn-success btn-sm mt-1 mb-1">Upvote {{ object.user.profile.upVotes }}</button></a>
+
+    <form id="upvote" action="{% url 'upvote' object.id user.username %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden">
+    </form>
+
+    <a href="javascript:{document.getElementById('downvote').submit()}"><button
+            class="btn btn-danger btn-sm mt-1 mb-1">Downvote {{ object.user.profile.downVotes }}</button></a>
+
+    <form id="downvote" action="{% url 'downvote' object.id user.username %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden">
+    </form>
+
+    {% else %}
+
+    <a href="{% url 'signin' %}"><button class="btn btn-primary btn-sm mt-1 mb-1">Sign in to vote</button></a>
+
+    {% endif %}
+    <br>
+    <br>
+    <br>
+    <h4>Price : {{ object.price }}</h4>
+    <br>
+    <br>
+    <p><strong>Location :</strong> {{ object.address }}</p>
+    <br>
+    <a class="btn btn-primary btn-sm mt-1 mb-1" href="mailto:{{ object.email }}">Contact</a>
+    <br>
+    <br>
+    <img id="img" class="img-fluid" src="{{ object.image.url }}">
+    <br>
+    <br>
+    <br>
+    <p>{{ object.text }}</p>
+    <br>
+    {% if  object.image2 %}
+    <img id="img" class="img-fluid" src="{{ object.image2.url }}">
+    {% endif %}
+    <br>
+    <br>
+    <br>
+    <br>
+    {% if object.text2 %}
+    <p>
+        {{ object.text2 }}
+    </p>
+    <br>
+    <br>
+    <br>
+    <br>
+    {% endif %}
+    {% if object.image3 %}
+    <img id="img" class="img-fluid" src="{{ object.image3.url }}">
+    {% endif %}
+    <br>
+    <br>
+    <br>
+    <br>
+    {% if object.text3 %}
+    <p>
+        {{ object.text3 }}
+    </p>
+    <br>
+
+
+    {% endif %}
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=
+    AIzaSyBEw-Tji9HGD6onYUnHYnVOJBCgOXmMLLo
+    &callback=myMap"></script>
+
+    <div class="fb-comments" data-href="{{ request.build_absolute_uri }}{{ object.get_absolute_url }}"
+        data-numposts="5"></div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+   {% comment %}  {% load addthis %} {% endcomment %}
+
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5c8bb2f6a5c7e509"></script>
+   {% comment %}  {% addthis_widget %} {% endcomment %}
+</div>
+
+
+{% endblock content %}
