@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -57,7 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'net.urls'
@@ -85,18 +85,15 @@ WSGI_APPLICATION = 'net.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
+
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'edushare',
+        'USER': 'root',
+        'PASSWORD': 'kendo',
+        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
     }
-    # 'default': {
-    #    'ENGINE': 'django.db.backends.mysql',
-    #    'NAME': 'edushare',
-    #    'USER': 'root',
-    #    'PASSWORD': 'kendo',
-    #    'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-    #    'PORT': '3306',
-    # }
 
 
 
@@ -144,8 +141,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'net/static')
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATIC_URL = '/static/'
 
