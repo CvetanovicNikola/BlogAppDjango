@@ -26,7 +26,7 @@ SECRET_KEY = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "edushareapp-nikola.herokuapp.com",
+    "edushareapp.herokuapp.com",
     "127.0.0.1",
     "192.168.1.103"
 ]
@@ -57,7 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'net.urls'
