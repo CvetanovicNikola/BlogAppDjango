@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "edushareapp-nikola.herokuapp.com"
+    "edushareapp-nikola.herokuapp.com",
     "127.0.0.1",
     "192.168.1.103"
 ]
@@ -57,7 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'net.urls'
@@ -85,15 +85,18 @@ WSGI_APPLICATION = 'net.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'edushare',
-        'USER': 'root',
-        'PASSWORD': 'kendo',
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+    # 'default': {
+    #    'ENGINE': 'django.db.backends.mysql',
+    #    'NAME': 'edushare',
+    #    'USER': 'root',
+    #    'PASSWORD': 'kendo',
+    #    'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+    #    'PORT': '3306',
+    # }
 
 
 
@@ -138,11 +141,11 @@ USE_TZ = True
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
+    os.path.join(BASE_DIR, 'net/static')
 ]
 
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATIC_URL = '/static/'
 
