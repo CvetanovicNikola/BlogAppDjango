@@ -17,9 +17,9 @@ class Post(models.Model):
     text3 = models.TextField(blank=True)
     date = models.DateTimeField(null=True, auto_now_add=True)
     title = models.CharField(max_length=250)
-    address = models.CharField(max_length=250)
+    #address = models.CharField(max_length=250)
     email = models.EmailField()
-    price = models.CharField(max_length=250, default="Dogovor")
+    #price = models.CharField(max_length=250, default="Dogovor")
 
     def summary(self):
         return self.text[:200]

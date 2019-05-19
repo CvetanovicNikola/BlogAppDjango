@@ -46,9 +46,9 @@ class CreatePost(LoginRequiredMixin, CreateView):
     model = Post
     readonly_fields = ("date")
     fields = [
-        "title", "address", "price", "email", "image", "text", "image2", "text2", "image3", "text3"
+        "title",  "email", "image", "text", "image2", "text2", "image3", "text3"
     ]
-
+            #"address", "price",
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
@@ -59,9 +59,9 @@ class UpdatePost(LoginRequiredMixin, UpdateView, UserPassesTestMixin):
     model = Post
     readonly_fields = ("date")
     fields = [
-        "title", "address", "price", "email", "image", "text", "image2", "text2", "image3", "text3"
+        "title",  "email", "image", "text", "image2", "text2", "image3", "text3"
     ]
-
+            #"address", "price",
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
